@@ -1,0 +1,26 @@
+version: '2'
+services:
+  db:
+    container_name: shipit-postgresql
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=shipit
+  redis:
+    container_name: shipit-redis
+    image: redis
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    container_name: shipit-web
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      - RAILS_ENV=production
+      - RACK_ENV=production
