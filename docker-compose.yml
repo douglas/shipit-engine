@@ -12,10 +12,11 @@ services:
       - "6379:6379"
   web:
     build: .
+    image: rails:4.2
     container_name: shipit-web
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes:
-      - .:/myapp
+#    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+#    volumes:
+#      - .:/shipit
     ports:
       - "3000:3000"
     depends_on:
